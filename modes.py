@@ -44,7 +44,7 @@ typevar="str"
 hyp=None
 hyptype="greater"
 #tail test (right, left, two)
-tails="right"
+#tails="right"
 
 small=True
 normal=True
@@ -126,7 +126,9 @@ def Z_CLT_prp(ps=None,pp=None,zu=None):
     Cint_u=ps+zu*math.sqrt((ps(1-ps))
 
 def getCriticalValue(n=None,hyp=None,hypp=None,hyptype=None,sd=None):
-    
+    try:
+    except:
+        
     
 #given any amount of information it finds everything else is the goal
 def combinations(r,n):

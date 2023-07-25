@@ -1,0 +1,30 @@
+{
+  "openpath": "C:/Users/Ethan/Documents/OpenRCT2",
+  "savedefault": "C:/Users/Ethan/Documents/OpenRCT2/object",
+  "opendefault": "C:/Users/Ethan/Documents/OpenRCT2/object",
+  "author": "Ethan",
+  "author_id": "Ethan",
+  "no_zip": false,
+  "version": 1.0,
+  "transparency_color": 0,
+  "import_color": [
+    0,
+    0,
+    0
+  ],
+  "palette": 0,
+  "small_scenery_defaults": {
+    "SMALL_SCENERY_FLAG_VOFFSET_CENTRE": true,
+    "requiresFlatSurface": false,
+    "isStackable": true,
+    "prohibitWalls": false,
+    "hasNoSupports": true,
+    "allowSupportsAbove": false,
+    "supportsHavePrimaryColour": false,
+    "SMALL_SCENERY_FLAG27": true,
+    "isTree": false,
+    "price": 1,
+    "removalPrice": 1,
+    "cursor": "CURSOR_BLANK"
+  }
+}

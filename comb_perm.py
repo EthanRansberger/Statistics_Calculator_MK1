@@ -6,9 +6,9 @@ def permutations(n,r):
     perm=math.factorial(n)/math.factorial(n-1)
     print(perm)
     return perm
-t=input("p or c?")
-n=input("n objects?")
-r=input("choosing objects?")
+t=input("p or c?: ")
+n=input("n objects?: ")
+r=input("r choosing objects?: ")
 if t='p':
     permutations(n,r)
 else:

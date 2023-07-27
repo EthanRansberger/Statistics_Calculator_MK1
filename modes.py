@@ -1,5 +1,5 @@
 import math
-from SciPy import stats
+#from SciPy import stats
 #includes logic for different distrubtions
 #I think it will loop until the function for results is reached.
 #use try function, and keep trying through things to see if can get anywhere
@@ -93,23 +93,35 @@ def getBeta():
         return
 def getAlpha():
     return
-
-def Ztst():
+#normal, known variance 
+#normal, unknown variance, large sample
+def Ztst(sx=None,mu=None,sd=None,n=None,tu=None)):
     Pmean=(sx-mu)/(sd/math.sqrt(n))
     Cint_l= sx-(zu*sd)/math.sqrt(n)
     Cint_u= sx+(zu*sd)/math.sqrt(n)
-def tn_i(sx=None,mu=None,,s_sd=None,n=None,tu=None):
+    print("mean: ", pmean, "\n interval low:", Cint_l, "\n interval high:", Cint_h)
+    return
+#normal, unknown variance, small small
+def tn_i(sx=None,mu=None,s_sd=None,n=None,tu=None):
     Pmean=(sx-mu)/(s_sd/math.sqrt(n))
     Cint_l= sx-(tu*s_sd)/math.sqrt(n)
     Cint_u= sx+(tu*s_sd)/math.sqrt(n)
-def Zlim_tn_i(sx=None,mu=None,,s_sd=None,n=None,zu=None):
+    print("mean: ", pmean, "\n interval low:", Cint_l, "\n interval high:", Cint_h)
+    return
+#
+def Zlim_tn_i(sx=None,mu=None,s_sd=None,n=None,zu=None):
     Pmean=(sx-mu)/(s_sd/math.sqrt(n))
     Cint_l= sx-(zu*s_sd)/math.sqrt(n)
     Cint_u= sx+(zu*s_sd)/math.sqrt(n)
+    print("mean: ", pmean, "\n interval low:", Cint_l, "\n interval high:", Cint_h)
+    return
+
 def chin_i(sd=None,s_sd=None,n=None,zu=None):
     Pmean= ((n-1)((s_sd)^2))/(sd^2)
     Cint_l= ((n-1)((s_sd)^2))/(chi_u^2)
     Cint_u= ((n-1)((s_sd)^2))/(chi_l^2)
+    print("mean: ", pmean, "\n interval low:", Cint_l, "\n interval high:", Cint_h)
+    return
 #get from sample exams
 def Z_CLT(sx=None,mu=None,sd=None,s_sd=None,n=None,zu=None):
     if popvar:
@@ -120,10 +132,14 @@ def Z_CLT(sx=None,mu=None,sd=None,s_sd=None,n=None,zu=None):
         Pmean= (sx-mu)/(s_sd/math.sqrt(n))
         Cint_l= sx-(zu*s_sd)/math.sqrt(n)
         Cint_u= sx+(zu*s_sd)/math.sqrt(n)
+    print("mean: ", pmean, "\n interval low:", Cint_l, "\n interval high:", Cint_h)
+    return
 def Z_CLT_prp(ps=None,pp=None,zu=None):
-    Pmean= (ps-pp)/math.sqrt((ps(1-ps))
+    Pmean = (ps-pp)/math.sqrt((ps(1-ps))
     Cint_l=ps-zu*math.sqrt((ps(1-ps))
     Cint_u=ps+zu*math.sqrt((ps(1-ps))
+    print("mean: ", pmean, "\n interval low:", Cint_l, "\n interval high:", Cint_h)
+    return                       
 
 def getCriticalValue(n=None,hyp=None,hypp=None,hyptype=None,sd=None):
     try:
@@ -131,10 +147,14 @@ def getCriticalValue(n=None,hyp=None,hypp=None,hyptype=None,sd=None):
         
     
 #given any amount of information it finds everything else is the goal
-def combinations(r,n):
-    return
+def combinations(n,r):
+    c = math.factorial(n)/(math.factorial(r)*math.factorial(n-r))
+    print(c)
+    return c
 def permutations(r,n):
-    return
+    perm=math.factorial(n)/math.factorial(n-1)
+    print(perm)
+    return perm
 def getZ():
     return
 def getT():
@@ -154,12 +174,13 @@ def getPopVar():
     else:
         return
 
-def getTest():
+def getTest(sx=None,mu=None,sd=None,s_sd=None,n=None,zu=None,s_sd=None,n=None,tu=None):
     #see flow chart
     if popmean:
         if normal:
-            if popvar:
+            if sd:
                 #z
+                
                 return(Ztst)
             else:
                 if small:

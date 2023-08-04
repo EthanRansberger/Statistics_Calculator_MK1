@@ -25,6 +25,8 @@ import requests
 
 
 import ctypes
+import auxiliaries as aux
+import widgets as wdg
 #import pyi_splash
 
 # Update the text on the splash screen
@@ -38,17 +40,67 @@ myappid = f'groupcreator.{VERSION}' # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 class MainWindowUi(QMainWindow):
-    def __init__(self, app_data_path, opening_objects = None):
+    def __init__(self, app_data_path):
         
         super().__init__()
         uic.loadUi(aux.resource_path('gui/main_window.ui'), self)
-        
+        self.setWindowIcon(QtGui.QIcon(aux.resource_path("gui/icon.png")))
+        self.setWindowTitle(f'Statistics Calculator - {VERSION}')
 
-        #Load empty object if not started with objects
+        
 
      
         self.show()
-        self.checkForUpdates(silent = True)
+
+
+        #### re-integrate after a release
+        #self.checkForUpdates(silent = True)
+
+    def checkForUpdates(self, silent = False):
+        try:
+            response = requests.get("https://api.github.com/repos/ethanransberger/Statistics_Calculator_MK1/releases/latest")
+        except requests.exceptions.ConnectionError:
+            return
+
+        # check if there is a higher version on git
+      
+        git_version = response.json()['tag_name']
+
+        if not versionCheck(git_version):
+            if not silent:
+                msg = QMessageBox(self)
+                msg.setIcon(QMessageBox.Information)
+                msg.setWindowTitle("No update available")
+                msg.setText(f"Stat calculator {VERSION} is up to date!")
+                msg.setStandardButtons(QMessageBox.Ok)
+
+                msg.exec_()
+
+            return
+
+        url = response.json()['html_url']
+        msg = QMessageBox(self)
+        msg.setIcon(QMessageBox.Information)
+        msg.setWindowTitle("New version available!")
+        msg.setTextFormat(QtCore.Qt.RichText)
+
+        msg.setText(f"Object Creator {git_version} is now available! <br> \
+                Your version: {VERSION} <br> \
+                <a href='{url}'>Click here to go to download page. </a> <br> <br> \
+                Alternatively, would you like to update automatically? <br> \
+                This only works if the program has been installed via the installer.")
+        msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+
+
+        reply = msg.exec_()
+
+        # Only in the .exe program the updater can be used
+        if reply == QMessageBox.Yes:
+            try:
+                os.execl('updater.exe', 'updater.exe')
+            except FileNotFoundError:
+                return
+
 
 def excepthook(exc_type, exc_value, exc_tb):
     tb = "".join(traceback.format_exception(exc_type, exc_value, exc_tb))
@@ -96,7 +148,7 @@ def main():
     if not exists(app_data_path):
         os.makedirs(app_data_path)
 
-    main = MainWindowUi(app_data_path= app_data_path, opening_objects= sys.argv[1:],)
+    main = MainWindowUi(app_data_path= app_data_path)
     main.show()
     main.activateWindow()
 

@@ -46,7 +46,7 @@ class MainWindowUi(QMainWindow):
         uic.loadUi(aux.resource_path('gui/main_window.ui'), self)
         self.setWindowIcon(QtGui.QIcon(aux.resource_path("gui/icon.png")))
         self.setWindowTitle(f'Statistics Calculator - {VERSION}')
-
+        self.
         
 
      
